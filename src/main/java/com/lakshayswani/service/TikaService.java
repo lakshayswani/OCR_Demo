@@ -9,5 +9,7 @@ public interface TikaService {
 	public Response parseFile(MultipartFile inputFile);
 	
 	public Response parseImagePdf(MultipartFile inputFile);
+
+	public Response parseImage(MultipartFile inputFile);
 	
 }

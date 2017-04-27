@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import static org.bytedeco.javacpp.lept.*;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +20,9 @@ import org.apache.tika.parser.Parser;
 import org.apache.tika.parser.ocr.TesseractOCRConfig;
 import org.apache.tika.parser.pdf.PDFParserConfig;
 import org.apache.tika.sax.BodyContentHandler;
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.javacpp.lept.PIX;
+import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -93,6 +97,34 @@ public class TikaServiceImpl implements TikaService{
 		}
 
 		return response;
+	}
+
+	@Override
+	public Response parseImage(MultipartFile inputFile) {
+		Response response;
+        BytePointer outText = null;
+        PIX image = null;
+        TessBaseAPI api = new TessBaseAPI();
+        if (api.Init(null, "eng") != 0) {
+			response = new Response(HttpStatus.BAD_REQUEST, "Could not initialize tesseract.");
+            return response;
+        }
+        try {
+			image = pixRead(new BytePointer(inputFile.getBytes()));
+	        api.SetImage(image);
+	        outText = api.GetUTF8Text();
+            response = new Response(null, outText.getString(), HttpStatus.OK, "Completed");
+		} catch (IOException e) {
+			e.printStackTrace();
+			response = new Response(HttpStatus.BAD_REQUEST, e.getMessage());
+		}
+        finally
+        {
+        	api.End();
+            outText.deallocate();
+            pixDestroy(image);
+        }
+		return null;
 	}
 
 }

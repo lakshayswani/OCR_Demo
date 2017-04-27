@@ -23,8 +23,8 @@ public class TikaController {
 	@Autowired
 	TikaService tikaService;
 
-	@ApiOperation(value = "/tika/ocr", notes = "Tika OCR parse")
-	@RequestMapping(value = "/tika/ocr", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@ApiOperation(value = "/tika/docOcr", notes = "Tika OCR parse")
+	@RequestMapping(value = "/tika/docOcr", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<Response> parseDocument(
 			@RequestPart(required = true) MultipartFile inputFile)
 			throws Exception {
@@ -34,13 +34,24 @@ public class TikaController {
 
 	}
 	
-	@ApiOperation(value = "/tika/pdfOcr", notes = "Tika OCR parse")
-	@RequestMapping(value = "/tika/pdfOcr", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@ApiOperation(value = "/tika/pdfImageOcr", notes = "Tika OCR parse")
+	@RequestMapping(value = "/tika/pdfImageOcr", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<Response> parsePDFDocument(
 			@RequestPart(required = true) MultipartFile inputFile)
 			throws Exception {
 		
 		Response response = tikaService.parseImagePdf(inputFile);
+		return new ResponseEntity<>(response, response.getHttpStatus());
+
+	}
+	
+	@ApiOperation(value = "/tika/imageOcr", notes = "Tika OCR parse")
+	@RequestMapping(value = "/tika/imageOcr", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity<Response> parseImageDocument(
+			@RequestPart(required = true) MultipartFile inputFile)
+			throws Exception {
+		
+		Response response = tikaService.parseImage(inputFile);
 		return new ResponseEntity<>(response, response.getHttpStatus());
 
 	}
