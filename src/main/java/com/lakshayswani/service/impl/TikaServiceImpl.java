@@ -32,9 +32,20 @@ import static org.bytedeco.javacpp.tesseract.*;
 import com.lakshayswani.response.Response;
 import com.lakshayswani.service.TikaService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TikaServiceImpl.
+ */
 @Service
 public class TikaServiceImpl implements TikaService {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.lakshayswani.service.TikaService#parseFile(org.springframework.web.
+	 * multipart.MultipartFile)
+	 */
 	@Override
 	public Response parseFile(MultipartFile inputFile) {
 		Response response;
@@ -61,6 +72,13 @@ public class TikaServiceImpl implements TikaService {
 		return response;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.lakshayswani.service.TikaService#parseImagePdf(org.springframework.
+	 * web.multipart.MultipartFile)
+	 */
 	@Override
 	public Response parseImagePdf(MultipartFile inputFile) {
 		Response response;
@@ -76,8 +94,8 @@ public class TikaServiceImpl implements TikaService {
 			for (int i = 0; i < pages; i++) {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ImageIO.write(renderer.renderImage(i), "jpeg", baos);
-				try(OutputStream outputStream = new FileOutputStream("abc.jpeg")) {
-				    baos.writeTo(outputStream);
+				try (OutputStream outputStream = new FileOutputStream("abc.jpeg")) {
+					baos.writeTo(outputStream);
 				}
 				api = new TessBaseAPI();
 				if (api.Init("D:\\Workspace\\Personal\\OCR\\tessdata", "ENG") != 0) {
@@ -89,10 +107,10 @@ public class TikaServiceImpl implements TikaService {
 					fos.write(outText.getStringBytes());
 					content.add(outText.getString());
 				}
-				
+
 			}
 			fos.close();
-			response = new Response(null , content , HttpStatus.OK, "Completed");
+			response = new Response(null, content, HttpStatus.OK, "Completed");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,6 +120,13 @@ public class TikaServiceImpl implements TikaService {
 		return response;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.lakshayswani.service.TikaService#parseImage(org.springframework.web.
+	 * multipart.MultipartFile)
+	 */
 	@Override
 	public Response parseImage(MultipartFile inputFile) {
 		Response response;

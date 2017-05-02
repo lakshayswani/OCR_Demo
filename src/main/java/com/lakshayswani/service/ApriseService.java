@@ -6,9 +6,9 @@ import com.lakshayswani.response.Response;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface AsposeService.
+ * The Interface ApriseService.
  */
-public interface AsposeService {
+public interface ApriseService {
 
 	/**
 	 * Parses the image.

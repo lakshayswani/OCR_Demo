@@ -39,6 +39,8 @@ dependencies {
 	compile group: 'org.bytedeco.javacpp-presets', name: 'tesseract-platform', version: '3.04.01-1.3'
 		
 	compile group: 'com.aspose', name: 'aspose-ocr', version: '3.4.0'
+		
+	compile group: 'com.asprise.ocr', name: 'java-ocr-api', version: '15.3.0.2'
 
     runtime 'org.apache.tika:tika-parsers:1.14'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
