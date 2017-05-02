@@ -1,5 +1,7 @@
 package com.lakshayswani.response;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 
 /**
@@ -11,7 +13,7 @@ public class Response {
 	private String metadata;
 
 	/** The content. */
-	private String content;
+	private List<String> content;
 
 	/** The http status. */
 	private HttpStatus httpStatus;
@@ -43,7 +45,7 @@ public class Response {
 	 *
 	 * @return the content
 	 */
-	public String getContent() {
+	public List<String> getContent() {
 		return content;
 	}
 
@@ -53,7 +55,7 @@ public class Response {
 	 * @param content
 	 *            the new content
 	 */
-	public void setContent(String content) {
+	public void setContent(List<String> content) {
 		this.content = content;
 	}
 
@@ -107,7 +109,7 @@ public class Response {
 	 * @param message
 	 *            the message
 	 */
-	public Response(String metadata, String content, HttpStatus httpStatus, String message) {
+	public Response(String metadata, List<String> content, HttpStatus httpStatus, String message) {
 		this.metadata = metadata;
 		this.content = content;
 		this.httpStatus = httpStatus;
