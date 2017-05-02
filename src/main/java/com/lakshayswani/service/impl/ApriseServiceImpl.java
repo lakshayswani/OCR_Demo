@@ -30,6 +30,7 @@ public class ApriseServiceImpl implements ApriseService {
 	@SuppressWarnings("null")
 	@Override
 	public Response parseImage(MultipartFile inputFile) {
+
 		Response response = null;
 		Ocr ocr = null;
 		File file = new File(inputFile.getOriginalFilename());
@@ -46,6 +47,7 @@ public class ApriseServiceImpl implements ApriseService {
 			response = new Response(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 		return response;
+
 	}
 
 }
